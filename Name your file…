@@ -1,0 +1,111 @@
+Enter file contents hereint score = 0;
+HLine h1 = new HLine(90,80, 2.8); 
+HLine h2 = new HLine(50, 0, 2.8); 
+HLine h3 = new HLine(140, 5, 2.8); 
+ 
+//Flappy Code
+   bird b = new bird();
+  
+   void setup(){
+     size(500,500);
+
+   
+   }
+     
+   void draw(){
+       
+     background(#C10E59);
+       h1.update(); 
+  h2.update();
+  h3.update();
+     b.mover();
+     b.drawBird();
+     b.abajo();
+ 
+      
+   }
+   
+   class HLine { 
+  float xpos,speed, ypos; 
+  HLine (float x, float y, float s) {  
+
+    xpos = x; 
+    speed = s;
+   ypos = y; 
+  } 
+  void update() { 
+     xpos+=speed;
+    if (xpos > width) { 
+      xpos = 0; 
+      
+     xpos = random(70*50);
+  
+    }
+    line(xpos, 0, xpos,(height/4));
+ 
+    line(xpos, 500, xpos,(height/2) );
+    
+    }
+    
+   
+  } 
+
+   class bird{
+     float xPos,yPos,ySpeed;
+     bird(){
+      xPos = 250;
+      yPos = 250;
+       }
+  //especificaciones del pajaro
+      void drawBird(){
+      fill(255);
+      ellipse(xPos,yPos,20,20);
+      if((yPos>height)||(yPos<0)){
+        background(255);
+       
+      fill(#C10E59);
+      textSize(50);
+      text("Game over",100,200);
+      }
+        }
+      
+     //saltar
+     void arriba(){
+      ySpeed-=12; 
+    }
+     //para abajo
+    void abajo(){
+     ySpeed+=0.5; 
+    }
+    void mover(){
+     yPos+=ySpeed; 
+     for(int i = 0;i<1;i++){
+      
+         if(dist(xPos,yPos,height/2,height/2)<=10){
+         background(255);
+       score--;
+      fill(#C10E59);
+      textSize(50);
+      text("Game over",100,200);
+  
+        }
+        else{
+        text(score,280,240);
+    fill(0);
+   
+        }
+
+     }
+   }
+   
+   } 
+  
+   void mousePressed(){
+     
+
+    b.arriba();
+    score++;
+   
+      
+   }
+
